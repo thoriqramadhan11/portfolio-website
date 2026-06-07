@@ -1026,24 +1026,347 @@
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); }
 
-  /* RESPONSIVE */
-  @media (max-width: 900px) {
-    nav { padding: 20px 24px; }
+  /* ─── HAMBURGER BUTTON ─────────────────────────────── */
+  .nav-hamburger {
+    display: none;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--pastel-blue);
+    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.3s, color 0.3s;
+    flex-shrink: 0;
+  }
+  .nav-hamburger:hover {
+    border-color: var(--pastel-blue-dim);
+    color: var(--text);
+  }
+
+  /* ─── MOBILE FULLSCREEN NAV OVERLAY ────────────────── */
+  .nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    background: rgba(13,17,23,0.97);
+    backdrop-filter: blur(16px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  .nav-overlay.open {
+    display: flex;
+    opacity: 0;
+  }
+  .nav-overlay.visible {
+    opacity: 1;
+  }
+
+  .nav-overlay-header {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-overlay-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--pastel-blue);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .nav-overlay-close {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 16px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .nav-overlay-close:hover {
+    border-color: #e05c5c;
+    color: #e05c5c;
+  }
+
+  .nav-overlay-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 0 32px;
+  }
+
+  .nav-overlay-links li {
+    width: 100%;
+    max-width: 320px;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+  .nav-overlay.visible .nav-overlay-links li:nth-child(1) { transition-delay: 0.08s; transform: translateY(0); opacity: 1; }
+  .nav-overlay.visible .nav-overlay-links li:nth-child(2) { transition-delay: 0.14s; transform: translateY(0); opacity: 1; }
+  .nav-overlay.visible .nav-overlay-links li:nth-child(3) { transition-delay: 0.20s; transform: translateY(0); opacity: 1; }
+  .nav-overlay.visible .nav-overlay-links li:nth-child(4) { transition-delay: 0.26s; transform: translateY(0); opacity: 1; }
+
+  .nav-overlay-links a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 18px 24px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: border-color 0.25s, color 0.25s, background 0.25s;
+  }
+  .nav-overlay-links a:hover {
+    border-color: var(--pastel-blue-dim);
+    color: var(--pastel-blue);
+    background: rgba(168,200,232,0.06);
+  }
+  .nav-overlay-links a span {
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  /* ─── ULTRA-WIDE (> 1400px) ─────────────────────────── */
+  @media (min-width: 1400px) {
+    section { padding: 100px 80px; }
+    .hero { padding: 140px 80px 100px; }
+  }
+
+  /* ─── TABLET (< 1024px) ─────────────────────────────── */
+  @media (max-width: 1024px) {
+    nav { padding: 18px 32px; }
     .nav-links { display: none; }
-    .hero { padding: 100px 24px 80px; }
+    .nav-hamburger { display: flex; }
+
+    .hero { padding: 110px 40px 80px; }
+    .hero-stats { right: 40px; bottom: 60px; gap: 20px; }
+    .stat-num { font-size: 32px; }
+
+    section { padding: 80px 40px; }
+
+    .about-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .skills-grid { gap: 24px; }
+    .skill-group { padding: 28px; }
+
+    .project-card {
+      grid-template-columns: 60px 1fr 160px;
+      gap: 24px;
+      padding: 36px 32px;
+    }
+    .project-num { font-size: 48px; }
+
+    #contact { padding: 100px 40px; }
+    footer { padding: 24px 40px; }
+  }
+
+  /* ─── MOBILE (< 768px) ───────────────────────────────── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+
+    /* Hero */
+    .hero { padding: 96px 20px 72px; min-height: 100svh; }
     .hero-stats { display: none; }
-    section { padding: 80px 24px; }
-    .about-grid { grid-template-columns: 1fr; gap: 40px; }
-    .skills-grid { grid-template-columns: 1fr; }
+    .hero-name { font-size: clamp(40px, 10vw, 64px); }
+    .hero-title { font-size: clamp(22px, 6vw, 36px); margin-bottom: 20px; }
+    .hero-desc { font-size: 14px; margin-bottom: 32px; }
+    .hero-stack { gap: 8px; margin-bottom: 36px; }
+    .stack-pill { font-size: 10px; padding: 5px 12px; }
+    .hero-cta {
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+    .btn-primary, .btn-outline {
+      width: 100%;
+      justify-content: center;
+      padding: 16px 24px;
+    }
+
+    /* Sections */
+    section { padding: 64px 20px; }
+    #projects { padding-left: 16px; padding-right: 16px; }
+    .projects-list { gap: 8px; }
+    .section-header { margin-bottom: 40px; gap: 12px; }
+    .section-title { font-size: clamp(26px, 7vw, 38px); }
+
+    /* About */
+    .about-grid { grid-template-columns: 1fr; gap: 36px; }
+    .about-text p { font-size: 14px; }
+    .contact-list { margin-top: 0; gap: 12px; }
+    .contact-item { font-size: 11px; }
+    .contact-icon { width: 32px; height: 32px; font-size: 13px; }
+
+    /* Skills */
+    .skills-grid { grid-template-columns: 1fr; gap: 16px; }
+    .skill-group { padding: 24px 20px; }
+    .skill-name { font-size: 12px; }
+    .skill-name span:last-child { font-size: 10px; }
+
+    /* Projects — fix overflow & all elements */
     .project-card {
       grid-template-columns: 1fr;
-      padding: 32px 24px;
+      padding: 24px 16px;
+      gap: 12px;
+      overflow: visible; /* let children breathe */
     }
-    .project-num { font-size: 40px; }
-    .project-links { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
-    footer { padding: 20px 24px; }
-    #contact { padding: 80px 24px; }
-    .contact-grid { gap: 20px; }
+    .project-num { font-size: 32px; line-height: 1; }
+    .project-title { font-size: 19px; line-height: 1.3; }
+    .project-tools {
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      word-break: break-word;
+      white-space: normal;
+      line-height: 1.6;
+    }
+    .project-desc { font-size: 13px; line-height: 1.7; }
+    .insight-list li { font-size: 12px; }
+
+    /* Project links — full width, easy to tap */
+    .project-links {
+      align-items: stretch;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+    .project-link {
+      justify-content: center;
+      padding: 14px 12px;
+      font-size: 10px;
+      white-space: normal;
+      text-align: center;
+      word-break: break-word;
+      letter-spacing: 0.06em;
+    }
+
+    /* Excel mockup — constrain to card width */
+    .excel-mockup {
+      width: 100%;
+      overflow: hidden;
+    }
+    .excel-mockup-bar {
+      padding: 6px 10px;
+      gap: 5px;
+      overflow: hidden;
+    }
+    .excel-mockup-dot { width: 8px; height: 8px; flex-shrink: 0; }
+    .excel-mockup-label {
+      font-size: 8px;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+    }
+    .excel-mockup img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Tableau container — constrain to card width */
+    .tableau-container {
+      width: 100%;
+      overflow: hidden;
+    }
+    .tableau-bar {
+      padding: 6px 10px;
+      gap: 5px;
+      overflow: hidden;
+    }
+    .tableau-dot { font-size: 10px; flex-shrink: 0; }
+    .tableau-bar-label {
+      font-size: 8px;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+    }
+    .tableau-preview {
+      height: 200px;
+      width: 100%;
+    }
+    .tableau-open-btn {
+      font-size: 10px;
+      padding: 10px 16px;
+      letter-spacing: 0.08em;
+    }
+    .tableau-preview-hint { font-size: 9px; }
+
+    /* Contact */
+    #contact { padding: 72px 20px; }
+    .contact-big { font-size: clamp(32px, 9vw, 56px); }
+    .contact-sub { font-size: 14px; margin-bottom: 36px; }
+    .contact-actions {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+    .contact-actions .btn-primary,
+    .contact-actions .btn-outline {
+      width: 100%;
+      justify-content: center;
+    }
+    .contact-grid {
+      gap: 20px;
+      flex-direction: column;
+      align-items: flex-start;
+      padding-left: 0;
+    }
+    .contact-detail-value { font-size: 13px; word-break: break-all; }
+
+    /* Footer */
+    footer {
+      padding: 20px;
+      flex-direction: column;
+      gap: 10px;
+      text-align: center;
+    }
+
+    /* Tableau modal on mobile */
+    .tableau-modal-title { font-size: 9px; letter-spacing: 0.08em; }
+    .tableau-modal-close { font-size: 10px; padding: 6px 12px; }
+    .tableau-modal-footer span { font-size: 9px; }
+  }
+
+  /* ─── SMALL MOBILE (< 400px) ─────────────────────────── */
+  @media (max-width: 400px) {
+    .hero-name { font-size: clamp(34px, 10vw, 52px); }
+    .project-title { font-size: 18px; }
+    .stack-pill { font-size: 9px; padding: 4px 10px; }
   }
 </style>
 </head>
@@ -1058,7 +1381,22 @@
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">☰</button>
 </nav>
+
+<!-- MOBILE NAV OVERLAY -->
+<div class="nav-overlay" id="navOverlay">
+  <div class="nav-overlay-header">
+    <span class="nav-overlay-logo">MTR // Portfolio</span>
+    <button class="nav-overlay-close" id="navOverlayClose" aria-label="Close menu">✕</button>
+  </div>
+  <ul class="nav-overlay-links">
+    <li><a href="#about" class="nav-overlay-link">About <span>01</span></a></li>
+    <li><a href="#skills" class="nav-overlay-link">Skills <span>02</span></a></li>
+    <li><a href="#projects" class="nav-overlay-link">Projects <span>03</span></a></li>
+    <li><a href="#contact" class="nav-overlay-link">Contact <span>04</span></a></li>
+  </ul>
+</div>
 
 <!-- HERO -->
 <div class="hero">
@@ -1408,9 +1746,40 @@
     document.body.style.overflow = '';
   }
 
-  // Close modal on Escape key
+  // ── HAMBURGER MENU ───────────────────────────────────
+  const hamburger    = document.getElementById('navHamburger');
+  const navOverlay   = document.getElementById('navOverlay');
+  const overlayClose = document.getElementById('navOverlayClose');
+  const overlayLinks = document.querySelectorAll('.nav-overlay-link');
+
+  function openNav() {
+    navOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // Trigger fade-in on next frame
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => navOverlay.classList.add('visible'));
+    });
+  }
+
+  function closeNav() {
+    navOverlay.classList.remove('visible');
+    document.body.style.overflow = '';
+    // Wait for opacity transition before hiding
+    navOverlay.addEventListener('transitionend', () => {
+      navOverlay.classList.remove('open');
+    }, { once: true });
+  }
+
+  hamburger.addEventListener('click', openNav);
+  overlayClose.addEventListener('click', closeNav);
+  overlayLinks.forEach(link => link.addEventListener('click', closeNav));
+
+  // Close on Escape
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeTableauModal();
+    if (e.key === 'Escape') {
+      closeNav();
+      closeTableauModal();
+    }
   });
 
 </script>
