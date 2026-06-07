@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Thoriq Ramadhan — Data Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg2: #111820;
+    --bg3: #161e28;
+    --pastel-blue: #a8c8e8;
+    --pastel-blue-dim: #6a9cbf;
+    --green: #2d7a4f;
+    --green-light: #4aad72;
+    --green-pastel: #9dd4b5;
+    --accent: #c8e6c9;
+    --text: #e8edf2;
+    --text-dim: #8a9bb0;
+    --text-muted: #4a5a6a;
+    --border: #1e2d3d;
+    --card: #121a24;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(13,17,23,0.95), transparent);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--pastel-blue);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    text-decoration: none;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--pastel-blue); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 60px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(168,200,232,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(168,200,232,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(45,122,79,0.12) 0%, transparent 70%);
+    top: -200px;
+    right: -100px;
+    pointer-events: none;
+  }
+
+  .hero-glow2 {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(168,200,232,0.08) 0%, transparent 70%);
+    bottom: -100px;
+    left: -50px;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--green-light);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--green-light);
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 7vw, 96px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .hero-name span {
+    display: block;
+    color: var(--pastel-blue);
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--text-dim);
+    margin-bottom: 32px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-desc {
+    max-width: 520px;
+    font-size: 15px;
+    color: var(--text-dim);
+    line-height: 1.8;
+    margin-bottom: 48px;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-stack {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .stack-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    padding: 6px 16px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--pastel-blue-dim);
+    background: rgba(168,200,232,0.04);
+    text-transform: uppercase;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    animation: fadeUp 0.8s 0.5s ease both;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: var(--green);
+    color: #fff;
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: var(--green-light);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: border-color 0.3s, color 0.3s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--pastel-blue-dim);
+    color: var(--pastel-blue);
+  }
+
+  .hero-stats {
+    position: absolute;
+    right: 60px;
+    bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+
+  .stat-item {
+    text-align: right;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--pastel-blue);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+
+  /* SECTION COMMON */
+  section {
+    padding: 100px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    margin-bottom: 64px;
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--green-light);
+    letter-spacing: 0.2em;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    margin-left: 8px;
+  }
+
+  /* ABOUT */
+  #about {
+    border-top: 1px solid var(--border);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about-text p {
+    font-size: 16px;
+    color: var(--text-dim);
+    line-height: 1.9;
+    margin-bottom: 20px;
+  }
+
+  .about-text p strong {
+    color: var(--pastel-blue);
+    font-weight: 500;
+  }
+
+  .contact-list {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .contact-item:hover { color: var(--pastel-blue); }
+
+  .contact-icon {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .skill-group {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 36px;
+  }
+
+  .skill-group-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--green-pastel);
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skill-item {
+    margin-bottom: 20px;
+  }
+
+  .skill-name {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .skill-name span:last-child {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .skill-bar {
+    height: 2px;
+    background: var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-fill {
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    background: linear-gradient(90deg, var(--green), var(--pastel-blue));
+    animation: fillBar 1.5s ease both;
+    animation-play-state: paused;
+  }
+
+  .skill-fill.animate { animation-play-state: running; }
+
+  .soft-skills-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .soft-skill {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+
+  .soft-skill::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--green-light);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* PROJECTS */
+  #projects { border-top: 1px solid var(--border); }
+
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 80px 1fr 180px;
+    gap: 40px;
+    align-items: start;
+    transition: border-color 0.3s, background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--green-light);
+    transition: height 0.4s ease;
+  }
+
+  .project-card:hover {
+    border-color: rgba(168,200,232,0.2);
+    background: var(--bg3);
+  }
+
+  .project-card:hover::before { height: 100%; }
+
+  .project-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    font-weight: 700;
+    color: var(--border);
+    line-height: 1;
+    transition: color 0.3s;
+  }
+
+  .project-card:hover .project-num { color: rgba(45,122,79,0.3); }
+
+  .project-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .project-tools {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--green-pastel);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .project-desc {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .project-desc strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .project-insights {
+    margin-top: 20px;
+  }
+
+  .project-insights-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .insight-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .insight-list li {
+    font-size: 13px;
+    color: var(--text-dim);
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .insight-list li strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .insight-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--green-light);
+    font-size: 11px;
+  }
+
+  .project-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+  }
+
+  .project-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+
+  .project-link:hover {
+    color: var(--pastel-blue);
+    border-color: var(--pastel-blue-dim);
+    background: rgba(168,200,232,0.04);
+  }
+
+  .project-link.primary {
+    border-color: var(--green);
+    color: var(--green-pastel);
+  }
+
+  .project-link.primary:hover {
+    background: rgba(45,122,79,0.12);
+    border-color: var(--green-light);
+    color: #fff;
+  }
+
+  /* EXCEL MOCKUP */
+  .excel-mockup {
+    margin-top: 28px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    background: #0a0f16;
+  }
+
+  .excel-mockup-bar {
+    background: #0f1923;
+    border-bottom: 1px solid var(--border);
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .excel-mockup-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+
+  .excel-mockup-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    margin-left: 6px;
+  }
+
+  .excel-mockup img {
+    width: 100%;
+    display: block;
+    opacity: 0.92;
+    transition: opacity 0.3s;
+  }
+
+  .excel-mockup:hover img { opacity: 1; }
+
+  .excel-mockup-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 60%, rgba(13,17,23,0.5) 100%);
+    pointer-events: none;
+  }
+
+  /* TABLEAU EMBED */
+  .tableau-container {
+    margin-top: 28px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    background: #0a0f16;
+  }
+
+  .tableau-bar {
+    background: #0f1923;
+    border-bottom: 1px solid var(--border);
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tableau-bar-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    margin-left: 6px;
+  }
+
+  .tableau-dot { color: var(--pastel-blue-dim); font-size: 12px; }
+
+  /* Preview area — scaled iframe inside fixed-height box */
+  .tableau-preview {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    overflow: hidden;
+    cursor: pointer;
+    background: #f5f5f0;
+  }
+
+  .tableau-preview-scaler {
+    position: absolute;
+    top: 0; left: 0;
+    width: 1440px;
+    height: 850px;
+    transform-origin: top left;
+    pointer-events: none;
+  }
+
+  .tableau-preview-scaler iframe {
+    width: 1440px;
+    height: 850px;
+    border: none;
+    display: block;
+  }
+
+  /* Gradient overlay + CTA always visible at bottom */
+  .tableau-preview-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 35%,
+      rgba(13,17,23,0.5) 60%,
+      rgba(13,17,23,0.92) 100%
+    );
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 24px;
+    gap: 10px;
+    transition: background 0.3s;
+  }
+
+  .tableau-preview:hover .tableau-preview-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(13,17,23,0.1) 0%,
+      rgba(13,17,23,0.4) 40%,
+      rgba(13,17,23,0.82) 70%,
+      rgba(13,17,23,0.97) 100%
+    );
+  }
+
+  .tableau-open-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 28px;
+    background: var(--green);
+    color: #fff;
+    border: 2px solid transparent;
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: background 0.25s, transform 0.2s, border-color 0.25s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+
+  .tableau-open-btn:hover {
+    background: var(--green-light);
+    border-color: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+  }
+
+  .tableau-preview-hint {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+  }
+
+  /* FULLSCREEN MODAL */
+  .tableau-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #0d1117;
+    flex-direction: column;
+  }
+
+  .tableau-modal.open { display: flex; }
+
+  /* No backdrop — panel IS the modal, fills everything */
+  .tableau-modal-panel {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+
+  .tableau-modal-header {
+    background: #0f1923;
+    border-bottom: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    cursor: default;
+  }
+
+  .tableau-modal-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  .tableau-modal-close {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    padding: 7px 18px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tableau-modal-close:hover {
+    border-color: #e05c5c;
+    color: #e05c5c;
+  }
+
+  /* Body: iframe centered, side padding so it never gets squished */
+  .tableau-modal-body {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    background: #0d1117;
+  }
+
+  .tableau-modal-body iframe {
+    /* Let Tableau breathe — centered with equal space on sides */
+    width: 100%;
+    max-width: 1366px;
+    height: 100%;
+    border: none;
+    display: block;
+    flex-shrink: 0;
+  }
+
+  /* Click-to-close footer bar */
+  .tableau-modal-footer {
+    background: #0f1923;
+    border-top: 1px solid var(--border);
+    padding: 9px 20px;
+    text-align: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .tableau-modal-footer:hover {
+    background: rgba(224,92,92,0.08);
+    border-top-color: rgba(224,92,92,0.3);
+  }
+
+  .tableau-modal-footer span {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .tableau-modal-footer:hover span { color: #e08888; }
+
+  @media (max-width: 900px) {
+    .project-card {
+      grid-template-columns: 1fr;
+      padding: 32px 24px;
+    }
+    .project-num { font-size: 40px; }
+    .project-links { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+    .tableau-preview { height: 260px; }
+  }
+
+  /* CONTACT */
+  #contact {
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 120px 60px;
+  }
+
+  .contact-big {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 6vw, 80px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+
+  .contact-big em {
+    font-style: italic;
+    color: var(--pastel-blue);
+  }
+
+  .contact-sub {
+    font-size: 15px;
+    color: var(--text-dim);
+    max-width: 480px;
+    margin: 0 auto 48px;
+    line-height: 1.8;
+  }
+
+  .contact-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 64px;
+  }
+
+  .contact-grid {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding-top: 48px;
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-detail {
+    text-align: left;
+  }
+
+  .contact-detail-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .contact-detail-value {
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+
+  .contact-detail-value a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .contact-detail-value a:hover { color: var(--pastel-blue); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+  }
+
+  .footer-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+
+  .footer-back {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .footer-back:hover { color: var(--pastel-blue); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fillBar {
+    from { width: 0; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 80px; }
+    .hero-stats { display: none; }
+    section { padding: 80px 24px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .project-card {
+      grid-template-columns: 1fr;
+      padding: 32px 24px;
+    }
+    .project-num { font-size: 40px; }
+    .project-links { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+    footer { padding: 20px 24px; }
+    #contact { padding: 80px 24px; }
+    .contact-grid { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">MTR // Portfolio</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Available for work</div>
+    <h1 class="hero-name">
+      Muhammad<br>
+      <span>Thoriq Ramadhan</span>
+    </h1>
+    <div class="hero-title">Data Analyst</div>
+    <p class="hero-desc">Turning raw data into actionable business insights. Specializing in data cleaning, exploratory analysis, and interactive dashboards that drive decisions.</p>
+    <div class="hero-stack">
+      <span class="stack-pill">SQL / MySQL</span>
+      <span class="stack-pill">Microsoft Excel</span>
+      <span class="stack-pill">Tableau</span>
+      <span class="stack-pill">EDA</span>
+      <span class="stack-pill">Data Cleaning</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View Projects ↓</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Projects</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">3+</div>
+      <div class="stat-label">Tools</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">1K+</div>
+      <div class="stat-label">Records Analyzed</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <h2 class="section-title">About</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>I'm a <strong>Data Analyst</strong> with hands-on experience in SQL, Excel, and Tableau. I specialize in data cleaning, exploratory analysis, and creating interactive dashboards that drive business decisions.</p>
+      <p>Passionate about turning <strong>complex data into clear, actionable insights</strong>. Currently open to Data Analyst roles and freelance opportunities.</p>
+      <p>My approach combines analytical rigor with a storytelling mindset — because numbers only matter when they help people make better decisions.</p>
+    </div>
+    <div class="reveal">
+      <div class="contact-list">
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=thoriq.ramadhan11@gmail.com" target="_blank" class="contact-item">
+          <div class="contact-icon">✉</div>
+          thoriq.ramadhan11@gmail.com
+        </a>
+        <a href="https://wa.me/628515605427" target="_blank" class="contact-item">
+          <div class="contact-icon">☎</div>
+          +62 851-5605-1427
+        </a>
+        <a href="https://github.com/thoriqramadhan11" target="_blank" class="contact-item">
+          <div class="contact-icon">⌥</div>
+          github.com/thoriqramadhan11
+        </a>
+        <a href="https://public.tableau.com/app/profile/muhammad.thoriq4465/vizzes" target="_blank" class="contact-item">
+          <div class="contact-icon">◈</div>
+          Tableau Public Profile
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" style="border-top: 1px solid var(--border);">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Skills & Tools</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Technical Skills</div>
+      <div class="skill-item">
+        <div class="skill-name"><span>SQL / MySQL</span><span>EDA, CTE, Window Functions</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width: 88%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name"><span>Microsoft Excel</span><span>Pivot Tables, Dashboard, KPI</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width: 85%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name"><span>Tableau</span><span>Interactive Dashboard & Viz</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width: 80%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name"><span>Data Cleaning</span><span>Preprocessing</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width: 90%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name"><span>Business Insights</span><span>Storytelling with Data</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width: 82%"></div></div>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Soft Skills</div>
+      <div class="soft-skills-list">
+        <div class="soft-skill">Analytical Thinking</div>
+        <div class="soft-skill">Problem Solving</div>
+        <div class="soft-skill">Communication of Technical Findings</div>
+        <div class="soft-skill">Attention to Detail</div>
+        <div class="soft-skill">Business Insight Storytelling</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Featured Projects</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-list">
+
+    <!-- PROJECT 1 -->
+    <div class="project-card reveal">
+      <div class="project-num">01</div>
+      <div>
+        <div class="project-tools">MySQL · Data Cleaning · EDA</div>
+        <h3 class="project-title">Tech Layoffs Analysis (2026)</h3>
+        <p class="project-desc">
+          <strong>Cleaned and prepared</strong> a large tech layoffs dataset
+          (<strong>duplicate removal, standardization, and data quality improvement</strong>).
+          Performed advanced <strong>Exploratory Data Analysis</strong> using
+          <strong>Window Functions, CTEs, and ranking techniques</strong>.
+          Analyzed layoff patterns by <strong>company, country, industry, funding stage, and timeline</strong>.
+        </p>
+        <div class="project-insights">
+          <div class="project-insights-title">Key Insights</div>
+          <ul class="insight-list">
+            <li>Highlighted the <strong>most impacted countries and industries</strong></li>
+            <li>Ranked companies with the <strong>highest layoffs per year</strong></li>
+            <li>Uncovered cases of <strong>well-funded companies</strong> that eventually shut down</li>
+          </ul>
+        </div>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/thoriqramadhan11/Tech-Industry-Layoffs" target="_blank" class="project-link primary">↗ GitHub Repo</a>
+      </div>
+    </div>
+
+    <!-- PROJECT 2 -->
+    <div class="project-card reveal">
+      <div class="project-num">02</div>
+      <div>
+        <div class="project-tools">Microsoft Excel · Pivot Tables · Dashboard · Slicers</div>
+        <h3 class="project-title">Bike Buyers Customer Analysis</h3>
+        <p class="project-desc">
+          <strong>Cleaned and analyzed</strong> customer data of <strong>1,000 records</strong>.
+          Developed a <strong>fully interactive dashboard</strong> with slicers
+          (<strong>Marital Status, Education, Region, Age Bracket, Commute Distance</strong>).
+          Identified <strong>key drivers</strong> behind bike purchasing behavior.
+        </p>
+        <div class="project-insights">
+          <div class="project-insights-title">Key Insights</div>
+          <ul class="insight-list">
+            <li><strong>Middle Age</strong> customers have the <strong>highest purchase rate</strong></li>
+            <li><strong>Closer commute distance</strong> strongly correlates with <strong>higher purchase likelihood</strong></li>
+            <li><strong>Married customers with higher income</strong> show stronger purchase tendency</li>
+          </ul>
+        </div>
+
+        <!-- EXCEL DASHBOARD MOCKUP -->
+        <div class="excel-mockup">
+          <div class="excel-mockup-bar">
+            <span class="excel-mockup-dot" style="background:#e05c5c"></span>
+            <span class="excel-mockup-dot" style="background:#e0a84d; margin-left:4px"></span>
+            <span class="excel-mockup-dot" style="background:#4aad72; margin-left:4px"></span>
+            <span class="excel-mockup-label">Bike_Sales_Dashboard.xlsx — Microsoft Excel</span>
+          </div>
+          <img src="assets/dashboard-excel.png" alt="Bike Sales Dashboard — Excel Interactive Dashboard showing Avg Income by Gender, Purchase by Age Bracket, and Purchase by Commute Distance">
+          <div class="excel-mockup-overlay"></div>
+        </div>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/thoriqramadhan11/Bike-Buyers-Analysis/blob/main/Bike%20Buyers%20Analysis%20Dashboard.xlsx" target="_blank" class="project-link primary">↗ Download Excel Dashboard</a>
+        <a href="https://github.com/thoriqramadhan11/Bike-Buyers-Analysis" target="_blank" class="project-link">↗ GitHub Repo</a>
+      </div>
+    </div>
+
+    <!-- PROJECT 3 -->
+    <div class="project-card reveal">
+      <div class="project-num">03</div>
+      <div>
+        <div class="project-tools">Tableau · Interactive Dashboard · Data Visualization</div>
+        <h3 class="project-title">Seattle Airbnb Market Analysis 2016</h3>
+        <p class="project-desc">
+          Explored <strong>Seattle's Airbnb market dynamics in 2016</strong> through
+          <strong>interactive visualizations</strong>.
+          Analyzed <strong>pricing trends by zip code</strong>, weekly revenue performance,
+          and geographic distribution.
+          Evaluated the <strong>impact of bedroom count on listing prices</strong>.
+        </p>
+        <div class="project-insights">
+          <div class="project-insights-title">Key Insights</div>
+          <ul class="insight-list">
+            <li><strong>Zipcode 98134</strong> recorded the <strong>highest average listing price</strong> in Seattle</li>
+            <li>Weekly revenue showed <strong>consistent and stable growth</strong> throughout 2016</li>
+            <li>Listings with <strong>more bedrooms</strong> commanded significantly <strong>higher average prices</strong></li>
+          </ul>
+        </div>
+
+        <!-- TABLEAU EMBED -->
+        <div class="tableau-container">
+          <div class="tableau-bar">
+            <span class="tableau-dot">◈</span>
+            <span class="tableau-bar-label">Tableau Public — Seattle Airbnb 2016 Market Insights</span>
+          </div>
+          <!-- PREVIEW: scaled iframe so full layout visible, click to open modal -->
+          <div class="tableau-preview" id="tableauPreview" onclick="openTableauModal()">
+            <div class="tableau-preview-scaler" id="tableauScaler">
+              <iframe
+                src="https://public.tableau.com/views/SeattleAirbnb2016MarketInsights/Dashboard1?:embed=yes&:display_count=no&:showVizHome=no&:toolbar=no&:origin=viz_share_link"
+                title="Seattle Airbnb 2016 Market Insights — Preview">
+              </iframe>
+            </div>
+            <div class="tableau-preview-overlay">
+              <button class="tableau-open-btn">⛶ &nbsp;Open Interactive Dashboard</button>
+              <span class="tableau-preview-hint">Click anywhere to view fullscreen</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="project-links">
+        <a href="https://public.tableau.com/app/profile/muhammad.thoriq4465/viz/SeattleAirbnb2016MarketInsights/Dashboard1" target="_blank" class="project-link primary">↗ View Tableau Dashboard</a>
+        <a href="https://github.com/thoriqramadhan11/Seattle-Airbnb-2016-Market-Insights" target="_blank" class="project-link">↗ GitHub Repo</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="max-width: 100%; padding: 120px 60px; border-top: 1px solid var(--border); text-align: center;">
+  <div class="section-num reveal" style="justify-content: center; margin-bottom: 16px; display: flex; letter-spacing: 0.2em; color: var(--green-light); font-family: 'DM Mono', monospace; font-size: 11px; text-transform: uppercase;">04</div>
+  <h2 class="contact-big reveal">Let's Work<br><em>Together</em></h2>
+  <p class="contact-sub reveal">Have a data project in mind? I'm open to Data Analyst roles and freelance opportunities. Let's set up a discussion!</p>
+  <div class="contact-actions reveal">
+    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=thoriq.ramadhan11@gmail.com" target="_blank" class="btn-primary">Send Email ↗</a>
+    <a href="https://github.com/thoriqramadhan11" target="_blank" class="btn-outline">View GitHub</a>
+  </div>
+  <div class="contact-grid reveal">
+    <div class="contact-detail">
+      <div class="contact-detail-label">Email</div>
+      <div class="contact-detail-value"><a href="https://mail.google.com/mail/?view=cm&fs=1&to=thoriq.ramadhan11@gmail.com" target="_blank">thoriq.ramadhan11@gmail.com</a></div>
+    </div>
+    <div class="contact-detail">
+      <div class="contact-detail-label">Phone</div>
+      <div class="contact-detail-value"><a href="https://wa.me/628515605427" target="_blank">+62 851-5605-1427</a></div>
+    </div>
+    <div class="contact-detail">
+      <div class="contact-detail-label">GitHub</div>
+      <div class="contact-detail-value"><a href="https://github.com/thoriqramadhan11" target="_blank">thoriqramadhan11</a></div>
+    </div>
+    <div class="contact-detail">
+      <div class="contact-detail-label">Tableau Public</div>
+      <div class="contact-detail-value"><a href="https://public.tableau.com/app/profile/muhammad.thoriq4465/vizzes" target="_blank">View Vizzes</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2026 Muhammad Thoriq Ramadhan</div>
+  <a href="#" class="footer-back">Back to Top ↑</a>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // Animate skill bars when visible
+  const skillBars = document.querySelectorAll('.skill-fill');
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate');
+        barObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  skillBars.forEach(bar => barObserver.observe(bar));
+
+  // Tableau preview scale — fits 1440px native width into preview container
+  const TABLEAU_NATIVE_W = 1440;
+  const TABLEAU_NATIVE_H = 850;
+
+  function scaleTableauPreview() {
+    const preview = document.getElementById('tableauPreview');
+    const scaler  = document.getElementById('tableauScaler');
+    if (!preview || !scaler) return;
+    const containerW = preview.offsetWidth;
+    const scale = containerW / TABLEAU_NATIVE_W;
+    scaler.style.transform = `scale(${scale})`;
+    // Height of preview box stays fixed (420px via CSS); scaler just clips at bottom
+  }
+
+  window.addEventListener('load',   scaleTableauPreview);
+  window.addEventListener('resize', scaleTableauPreview);
+  setTimeout(scaleTableauPreview, 300);
+  setTimeout(scaleTableauPreview, 1200);
+
+  // Tableau modal open/close
+  const TABLEAU_SRC = 'https://public.tableau.com/views/SeattleAirbnb2016MarketInsights/Dashboard1?:embed=yes&:display_count=no&:showVizHome=no&:toolbar=yes&:origin=viz_share_link';
+
+  function openTableauModal() {
+    const modal = document.getElementById('tableauModal');
+    const frame = document.getElementById('tableauModalFrame');
+    frame.src = TABLEAU_SRC;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeTableauModal() {
+    const modal = document.getElementById('tableauModal');
+    const frame = document.getElementById('tableauModalFrame');
+    modal.classList.remove('open');
+    frame.src = ''; // stop loading when closed
+    document.body.style.overflow = '';
+  }
+
+  // Close modal on Escape key
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeTableauModal();
+  });
+
+</script>
+<!-- TABLEAU FULLSCREEN MODAL — placed at body level to escape overflow:hidden containers -->
+<div class="tableau-modal" id="tableauModal">
+  <!-- Modal panel -->
+  <div class="tableau-modal-panel">
+    <div class="tableau-modal-header">
+      <span class="tableau-modal-title">◈ &nbsp;Seattle Airbnb 2016 Market Insights — Tableau Public</span>
+      <button class="tableau-modal-close" onclick="closeTableauModal()">✕ &nbsp;Close</button>
+    </div>
+    <div class="tableau-modal-body">
+      <iframe
+        id="tableauModalFrame"
+        src=""
+        allowfullscreen
+        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"
+        title="Seattle Airbnb 2016 Market Insights — Tableau Dashboard Fullscreen">
+      </iframe>
+    </div>
+    <div class="tableau-modal-footer" onclick="closeTableauModal()">
+      <span>✕ &nbsp;Click here or press Esc to close</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
